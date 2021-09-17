@@ -18,7 +18,7 @@ pipeline {
         }
         stage("building docker image") {
             steps {
-                sh "docker build -t stephali/tomcat_sonarnavndocker:${env.BUILD_NUMBER}"
+                sh "docker build -t stephali/tomcat_sonarnavndocker:${env.BUILD_NUMBER} ."
                 }
             }
         stage("Pushing Image to Docker Hub") {
