@@ -9,15 +9,24 @@ pipeline {
                 }
             }
         }
-   stage("Quality Gate") {
+         stage("Quality Gate") {
             steps {
                 timeout(time: 1, unit: 'MINUTES') {
                 waitForQualityGate abortPipeline: true
                 }
             }
         }
-
-
-
-    }
+        stage("building docker image") {
+            steps {
+                sh "docker build -t stephali/tomcat_sonarnavndocker:${env.BUILD_NUMBER}"
+                }
+            }
+        stage("Pushing Image to Docker Hub") {
+            steps {
+               sh "docker login username: stephali password: Bbrostant1!"
+               sh "docker push stephali/tomcat_sonarnavndocker:${env.BUILD_NUMBER}"
+                
+            }
+        }
+   }
 }
