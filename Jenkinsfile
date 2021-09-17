@@ -30,9 +30,9 @@ pipeline {
         }
         stage("Deploying to Tomcat Server") {  
             steps {
-               sh "docker stop tomcatcont"
-               sh "docker rm tomcatcont"
-               sh "docker rmi stephali/tomcat_sonarnavndocker:${env.BUILD_NUMBER}"
+               sh "docker stop tomcatcont || true"
+               sh "docker rm tomcatcont || true"
+               sh "docker rmi stephali/tomcat_sonarnavndocker:${env.BUILD_NUMBER} || true"
                sh "docker run -itd --name tomcatcont -p 9090:8080 stephali/tomcat_sonarnavndocker:${env.BUILD_NUMBER}"
              }
          }
